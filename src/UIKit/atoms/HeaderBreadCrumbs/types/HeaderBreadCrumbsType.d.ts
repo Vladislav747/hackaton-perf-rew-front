@@ -1,0 +1,3 @@
+interface HeaderBreadCrumbsProps {
+  currentObjectName?: string;
+}

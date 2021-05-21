@@ -1,0 +1,3 @@
+interface DeleteAllComponentProps {
+    cleanAll: () => {};
+}

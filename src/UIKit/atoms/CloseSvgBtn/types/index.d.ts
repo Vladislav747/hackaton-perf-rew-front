@@ -1,0 +1,3 @@
+interface CloseSvgProps {
+     inFlex: boolean
+}

@@ -1,0 +1,15 @@
+import React from 'react'
+import { shallow, mount } from 'enzyme'
+import {{properCase name}} from './{{properCase name}}'
+
+describe('<{{properCase name}} />', () => {
+    const wrap = (props = {}) => shallow(<{{properCase name}} {...props} />)
+    const wrapMount = (props = {}) => mount(<{{properCase name}} {...props} />)
+    it('container', () => {
+        expect(wrap().contains(<React.Fragment />)).toEqual(true)
+    })
+
+//    it('container has class', () => {
+//        expect(wrapper.is('.component-{{camelCase name}}')).toEqual(true)
+//    })
+})

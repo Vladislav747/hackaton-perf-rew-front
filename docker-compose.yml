@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  web-app:
+    build:
+      context: ./
+      dockerfile: docker/dev/Dockerfile
+    volumes:
+      - /app/node_modules
+      - ./:/app
+    ports:
+      - 127.0.0.1:3056:${PORT}
+    restart: on-failure
+    container_name: web-app

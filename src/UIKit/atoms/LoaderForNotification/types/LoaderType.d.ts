@@ -1,0 +1,3 @@
+interface LoaderInterface {
+  style?: any;
+}

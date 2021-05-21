@@ -1,0 +1,3 @@
+interface BtnContainerStyled {
+  active?: boolean;
+}

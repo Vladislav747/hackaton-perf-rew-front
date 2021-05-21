@@ -1,0 +1,13 @@
+import { actionTypes } from './actions'
+import { StateSchema } from './schema'
+
+/**
+*reducer
+**/
+export default (state = { ...StateSchema }, action) => {
+const { type, payload } = action
+switch (type) {
+default:
+return state
+}
+}

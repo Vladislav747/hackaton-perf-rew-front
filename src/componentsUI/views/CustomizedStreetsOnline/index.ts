@@ -1,0 +1,3 @@
+import CustomizedStreetsOnlineTemplate from './CustomizedStreetsOnlineTemplate'
+
+export default CustomizedStreetsOnlineTemplate

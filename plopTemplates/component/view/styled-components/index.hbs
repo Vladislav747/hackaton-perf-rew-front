@@ -1,0 +1,16 @@
+import styled from "styled-components";
+
+import { mediaQueries } from "../../../../helpers/styled-components";
+
+export const ExampleWrapper = styled.div`
+
+${mediaQueries("xl")`
+    height: calc(100vw * 0.56 + 2.5em);
+`};
+`;
+
+export const StyledList = styled(List)`
+&:focus {
+outline: none;
+}
+`;

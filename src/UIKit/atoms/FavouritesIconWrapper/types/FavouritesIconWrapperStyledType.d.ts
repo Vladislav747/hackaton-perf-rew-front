@@ -1,0 +1,3 @@
+interface FavouritesBtnStyled {
+  disabled?: Boolean;
+}

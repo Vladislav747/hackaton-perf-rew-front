@@ -1,0 +1,63 @@
+stages:
+  - tests
+  - build
+  - deploy
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: "unix:///var/run/docker.sock"
+  DOCKER_BUILDKIT: 1
+  IMAGE_NGINX: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+
+tests:
+  image: node:12.16.1-alpine3.9
+  stage: tests
+  script:
+    - echo "preparing test enviroment"
+    - npm install
+    - echo "Unit testing new CCTV react frontend"
+    - CI=true npm run test-unit
+    - echo "unit tests successfully!"
+    - echo "e2e testing new CCTV react frontend"
+    - CI=true npm run test-e2e
+    - echo "e2e tests successfully!"
+    - echo "Testing build! WARNING WITHOUT CI!!!!"
+    - CI=false npm run build
+    - echo "Build successfully!"
+  only:
+    refs:
+      - merge_requests
+
+build:
+  image: docker:latest
+  stage: build
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build
+      --build-arg REACT_APP_VERSION="${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}"
+      --tag $IMAGE_NGINX
+      --file docker/prod/Dockerfile
+      .
+    - docker push $IMAGE_NGINX
+  only:
+    refs:
+      - master
+      - alpha
+      - pre-release
+
+deploy:
+  image: registry.is74.ru/docker/ci-utilities/git-deploy:r1
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+    CD_REPOSITORY: git@git.is74.ru:cams/k8s/$CI_PROJECT_NAME.git
+  script:
+    - . clone.sh
+    - echo "$IMAGE_NGINX" > "appversions/nginx-${CI_COMMIT_REF_NAME}"
+    - push.sh
+  only:
+    refs:
+      - master
+      - alpha
+      - pre-release
