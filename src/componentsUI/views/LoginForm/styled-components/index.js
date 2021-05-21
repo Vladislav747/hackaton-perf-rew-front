@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { Grid, Row, Col } from "react-flexbox-grid";
 
-import { Heading, IconButton } from "UIKit";
-
 export const Wrapper = styled(Grid)`
   min-height: 100vh;
   height: 1px;
@@ -28,12 +26,12 @@ export const GroupContainer = styled(Row)`
   margin-bottom: 1.2rem;
 `;
 
-export const HeadingStyled = styled(Heading)`
+export const HeadingStyled = styled.div`
   margin-top: 1.2rem;
   margin-bottom: 0;
   text-align: center;
 `;
 
-export const IconButtonStyled = styled(IconButton)`
+export const IconButtonStyled = styled.div`
   width: 100%;
 `;

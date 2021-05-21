@@ -119,7 +119,7 @@ const LoginForm = (props: LoginFormProps) => {
                     center="sm"
                   >
                     <Col className="login__form-col" xs={12}>
-                      <HeadingStyled className="login__heading" level={4}>
+                      <HeadingStyled className="login__heading">
                         Авторизация
                       </HeadingStyled>
                     </Col>
@@ -178,19 +178,10 @@ const LoginForm = (props: LoginFormProps) => {
                       md={7}
                       lg={5}
                     >
-                      <IconButtonStyled
+                      <div
                         className="group-container__icon-btn"
                         title="Вход"
-                        disabled={
-                          !(
-                            password.length > 0 &&
-                            username.length > 0 &&
-                            !authInProgressProps
-                          )
-                        }
-                        responsive
-                        breakpoint={320}
-                        icon={SingInIcon}
+                       
                         onClick={() => {
                           handleSubmitProps({
                             username,
@@ -199,7 +190,7 @@ const LoginForm = (props: LoginFormProps) => {
                         }}
                       >
                         Вход
-                      </IconButtonStyled>
+                      </div>
                     </Col>
                   </GroupContainer>
                   <GroupContainer
