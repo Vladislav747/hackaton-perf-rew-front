@@ -41,14 +41,6 @@ import timelineReducer, {
   moduleName as timelineModuleName,
 } from "../modules/timeline";
 
-import customGroupsModalReducer, {
-  moduleName as customGroupsModalModuleName,
-} from "../modules/customGroupsModal";
-
-import customGroupsFlistReducer, {
-  moduleName as customGroupsFlistModuleName,
-} from "../modules/customGroupsFlist";
-
 import favouriteReducer, {
   moduleName as favouriteModuleName,
 } from "../modules/favourite";
@@ -70,8 +62,6 @@ const rootReducer = combineReducers({
   [sidemenuModuleName]: sidemenuReducer,
   [playerModuleName]: playerReducer,
   [timelineModuleName]: timelineReducer,
-  [customGroupsModalModuleName]: customGroupsModalReducer,
-  [customGroupsFlistModuleName]: customGroupsFlistReducer,
   [favouriteModuleName]: favouriteReducer,
   [warningModalModuleName]: warningModalReducer,
 });

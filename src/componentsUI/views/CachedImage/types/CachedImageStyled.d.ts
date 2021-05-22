@@ -1,3 +1,0 @@
-interface StyledFavouritesBtn {
-  active: boolean;
-}

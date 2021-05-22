@@ -44,27 +44,6 @@ const Header = ({
 
   return showLoginLinkProps ? (
     <HeaderStyled className="component-header">
-      {!hasSeenRedirectBannerProps && (
-        <HeaderStyledTop
-          className={classNames({
-            "component-header__top": true,
-            hide: showRedirectLinkState === false,
-          })}
-        >
-          <CloseSmallSvgStyled
-            onClick={() => {
-              closeClickHandler();
-            }}
-          />
-          <Button
-            href={process.env.REACT_APP_OLD_CAMS_LINK}
-            onClick={() => ymSendAnalytics(yandexEvents.clickOldRedirectPanel)}
-          >
-            Перейти на старую версию сайта
-            <BackArrowIconStyled />
-          </Button>
-        </HeaderStyledTop>
-      )}
 
       <GridStyled className="component-header__grid">
         <GridRowStyled

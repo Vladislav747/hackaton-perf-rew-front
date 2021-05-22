@@ -11,7 +11,8 @@ interface authStartWorkerType {
 }
 
 type authStartWorkerTypePayload = {
-  username: string;
+  name: string;
+  phone: string;
 };
 
 interface authCompleteWorkerType {
@@ -19,5 +20,9 @@ interface authCompleteWorkerType {
 }
 
 type authCompleteWorkerTypePayload = {
-  data: object;
+  data: dataTypeAuth;
 };
+
+type dataTypeAuth = {
+  token:string;
+}

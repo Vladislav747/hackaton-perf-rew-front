@@ -10,36 +10,20 @@ import {
   SidebarInnerTop,
   SidebarInnerSection,
   StyledHamburgerMenuIcon,
-  StyledFavouritesIcon,
-  StyledVideoNabludenieIcon,
-  StyledStreetsOnlineIcon,
-  StyledFolderIcon,
-  StyledDemoIcon,
   SidebarInnerExtended,
   StyledLogoIcon,
   SidebarIconWrapperExtended,
   SidebarInnerSectionExtended,
   SidebarNameIconExtended,
-  StyledArrowDownIcon,
-  SubMenuSidebarWrapper,
-  SubMenuElement,
-  SubMenuLink,
+  StyledLeaderIcon,
   SidebarInnerTopExtended,
   StyledHamburgerMenuIconExtended,
-  SubMenuBtn,
-  SubMenuNoElements,
-  StyledFavouritesFilledIcon,
+  StyledReviewsIcon,
+  StyledProfileIcon,
 } from "./styled-components";
 
 import { getAccessToken } from "../../../helpers/authTokens";
 import history from "../../../helpers/history";
-
-import PersonalGroupSubmenuElement from "../../atoms/PersonalGroupSubmenuElement";
-import UnAuthorizedTooltip from "../../atoms/UnAuthorizedTooltip";
-import {
-  ymSendAnalytics,
-  yandexEvents,
-} from "../../../helpers/yandex-analytics";
 
 const SideMenu = ({
   optionsForStreetsMenu: optionsForStreetsMenuProps,
@@ -70,7 +54,6 @@ const SideMenu = ({
    * Обработчик раскрывания/закрытия бокового меню
    */
   const showExtendedMenuHandler = () => {
-    ymSendAnalytics(yandexEvents.clickOpenIconSidemenu);
     setExtendedSidebarStatusProps(!showExtendedSidebarStatusProps);
   };
 
@@ -115,7 +98,6 @@ const SideMenu = ({
    * Обработчик для streets online в нераскрытом меню
    */
   const showSubMenuStreetsOnlineHandler = () => {
-    ymSendAnalytics(yandexEvents.clickSidemenuStreetsOpenIcon);
     setSubmenuStreetsStatusProps(!showExtendedSubMenuStreetsStatusProps);
   };
 
@@ -160,16 +142,7 @@ const SideMenu = ({
    * Обработчик нажатия по скрытой иконке улицы онлайн
    */
   const streetsIconSidemenuHideHandler = () => {
-    ymSendAnalytics(yandexEvents.clickStreetsIconSidemenu);
     showSubMenuHandler(avaibleTypes.streets);
-  };
-
-  /**
-   * Обработчик нажатия по городу в боковом меню в улицах онлайн
-   */
-  const chooseCityHandler = (id: number, name: string) => {
-    ymSendAnalytics(yandexEvents.clickSidemenuStreetsChooseCity);
-    chooseCityProps(id, name);
   };
 
   return (
@@ -192,36 +165,11 @@ const SideMenu = ({
                   className="sidebar__icon-wrapper"
                   onClick={() => showSubMenuStreetsOnlineHandler()}
                 >
-                  <StyledStreetsOnlineIcon />
+                  <StyledProfileIcon />
                   <SidebarNameIconExtended>
-                    Улицы Онлайн
+                    Профиль сотрудника
                   </SidebarNameIconExtended>
-                  <StyledArrowDownIcon
-                    opened={showExtendedSubMenuStreetsStatusProps.toString()}
-                  />
                 </SidebarIconWrapperExtended>
-                <SubMenuSidebarWrapper
-                  className={classNames({
-                    "sub-menu__wrapper": true,
-                    opened: showExtendedSubMenuStreetsStatusProps === true,
-                  })}
-                >
-                  {optionsForStreetsMenuProps.map((el: any, index: number) => {
-                    return (
-                      <React.Fragment key={index}>
-                        <SubMenuElement className="sub-menu__element">
-                          <SubMenuLink
-                            key={el.id + index}
-                            className="sub-menu__link"
-                            onClick={() => chooseCityHandler(+el.id, el.name)}
-                          >
-                            {el.name}
-                          </SubMenuLink>
-                        </SubMenuElement>
-                      </React.Fragment>
-                    );
-                  })}
-                </SubMenuSidebarWrapper>
                 <SidebarIconWrapperExtended
                   className="sidebar__icon-wrapper"
                   onClick={() =>
@@ -230,125 +178,24 @@ const SideMenu = ({
                     )
                   }
                 >
-                  <StyledVideoNabludenieIcon />
+                  <StyledReviewsIcon />
 
                   <SidebarNameIconExtended>
-                    Мое видеонаблюдение
+                    Отзывы
                   </SidebarNameIconExtended>
-                  <StyledArrowDownIcon
-                    opened={showSubMenuVideoSidebarState.toString()}
-                  />
                 </SidebarIconWrapperExtended>
-                <SubMenuSidebarWrapper
-                  className={classNames({
-                    "sub-menu__wrapper": true,
-                    opened: showSubMenuVideoSidebarState === true,
-                  })}
-                >
-                  <SubMenuElement className="sub-menu__element">
-                    <SubMenuLink className="sub-menu__link">
-                      Мой дом
-                    </SubMenuLink>
-                  </SubMenuElement>
-                </SubMenuSidebarWrapper>
-                <UnAuthorizedTooltip>
-                  <SidebarIconWrapperExtended
-                    className="sidebar__icon-wrapper --auth"
-                    onClick={() => {
-                      handleCustomGroupsClick();
-                    }}
-                  >
-                    <StyledFolderIcon />
-                    <SidebarNameIconExtended>
-                      Мои группы камер
-                    </SidebarNameIconExtended>
-                    <StyledArrowDownIcon
-                      opened={showExtendedSubMenuCustomGroupsStatusProps.toString()}
-                    />
-                  </SidebarIconWrapperExtended>
-                </UnAuthorizedTooltip>
 
-                <SubMenuSidebarWrapper
-                  className={classNames({
-                    "sub-menu__wrapper": true,
-                    opened: showExtendedSubMenuCustomGroupsStatusProps === true,
-                  })}
-                >
-                  <SubMenuElement>
-                    <SubMenuBtn
-                      onClick={() => {
-                        openAddGroupModalProps(true);
-                      }}
-                    >
-                      Добавить группу
-                    </SubMenuBtn>
-                  </SubMenuElement>
-                  {personalGroupsProps.length > 0 ? (
-                    personalGroupsProps.map((el: any, index: number) => (
-                      <PersonalGroupSubmenuElement
-                        element={el}
-                        key={index}
-                        deletePersonalGroupForUser={
-                          deletePersonalGroupForUserProps
-                        }
-                        openEditGroupModal={openEditGroupModalProps}
-                        openEditMode={openEditModeProps}
-                        activeGroup={activeGroupProps}
-                        setActivePersonalGroup={setActivePersonalGroupProps}
-                      />
-                    ))
-                  ) : (
-                    <SubMenuNoElements>Нет групп камер</SubMenuNoElements>
-                  )}
-                </SubMenuSidebarWrapper>
+               
                 <SidebarIconWrapperExtended
                   className="sidebar__icon-wrapper"
                   onClick={() =>
-                    setShowSubMenuVideoSidebarState(
-                      !showSubMenuVideoSidebarState
-                    )
+                    history.push("/card-leader")
                   }
                 >
-                  <StyledVideoNabludenieIcon />
+                  <StyledLeaderIcon />
 
                   <SidebarNameIconExtended>
-                    Мое видеонаблюдение
-                  </SidebarNameIconExtended>
-                  <StyledArrowDownIcon
-                    opened={showSubMenuVideoSidebarState.toString()}
-                  />
-                </SidebarIconWrapperExtended>
-                <SubMenuSidebarWrapper
-                  className={classNames({
-                    "sub-menu__wrapper": true,
-                    opened: showSubMenuVideoSidebarState === true,
-                  })}
-                >
-                  <SubMenuElement className="sub-menu__element">
-                    <SubMenuLink className="sub-menu__link">
-                      Мой дом
-                    </SubMenuLink>
-                  </SubMenuElement>
-                </SubMenuSidebarWrapper>
-                <UnAuthorizedTooltip>
-                  <SidebarIconWrapperExtended
-                    className="sidebar__icon-wrapper"
-                    onClick={() => openFavouritesHandler()}
-                  >
-                    {isFavouritesActiveState ? (
-                      <StyledFavouritesFilledIcon />
-                    ) : (
-                      <StyledFavouritesIcon />
-                    )}
-                    <SidebarNameIconExtended>Избранное</SidebarNameIconExtended>
-                  </SidebarIconWrapperExtended>
-                </UnAuthorizedTooltip>
-              </SidebarInnerSectionExtended>
-              <SidebarInnerSectionExtended>
-                <SidebarIconWrapperExtended className="sidebar__icon-wrapper">
-                  <StyledDemoIcon />
-                  <SidebarNameIconExtended>
-                    Раздел на будущее
+                    Профиль руководителя
                   </SidebarNameIconExtended>
                 </SidebarIconWrapperExtended>
               </SidebarInnerSectionExtended>
@@ -368,38 +215,19 @@ const SideMenu = ({
             </SidebarInnerTop>
             <SidebarInnerSection className="sidebar-inner__section">
               <SidebarIconWrapper className="sidebar__icon-wrapper">
-                <StyledStreetsOnlineIcon
-                  onClick={() => streetsIconSidemenuHideHandler()}
+                <StyledProfileIcon
+                  onClick={() =>  history.push("/")}
                 />
               </SidebarIconWrapper>
               <SidebarIconWrapper className="sidebar__icon-wrapper">
-                <UnAuthorizedTooltip>
-                  <StyledFolderIcon
-                    onClick={() => showSubMenuCustomGroupsHandler()}
-                  />
-                </UnAuthorizedTooltip>
+                <StyledReviewsIcon  onClick={() =>  history.push("/reviews")}/>
               </SidebarIconWrapper>
               <SidebarIconWrapper className="sidebar__icon-wrapper">
-                <StyledVideoNabludenieIcon />
+                <StyledLeaderIcon onClick={() =>
+                    history.push("/card-leader")
+                  }/>
               </SidebarIconWrapper>
-              <SidebarIconWrapper className="sidebar__icon-wrapper">
-                <UnAuthorizedTooltip>
-                  {isFavouritesActiveState ? (
-                    <StyledFavouritesFilledIcon
-                      onClick={() => openFavouritesHandler()}
-                    />
-                  ) : (
-                    <StyledFavouritesIcon
-                      onClick={() => openFavouritesHandler()}
-                    />
-                  )}
-                </UnAuthorizedTooltip>
-              </SidebarIconWrapper>
-            </SidebarInnerSection>
-            <SidebarInnerSection className="sidebar-inner__bottom">
-              <SidebarIconWrapper className="sidebar__icon-wrapper">
-                <StyledDemoIcon />
-              </SidebarIconWrapper>
+
             </SidebarInnerSection>
           </SidebarInner>
         </SidebarWrapper>

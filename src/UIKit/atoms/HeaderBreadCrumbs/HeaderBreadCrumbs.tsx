@@ -49,7 +49,7 @@ const HeaderBreadCrumbs = ({
         }}
       >
         <HeaderBreadcrumbsRowSpan className="header-breadcrumbs__root">
-          Видеонаблюдение
+          Главная
         </HeaderBreadcrumbsRowSpan>
         {currentObjectNameProps &&
           checkActiveObjectNameProps(currentObjectNameProps) && (

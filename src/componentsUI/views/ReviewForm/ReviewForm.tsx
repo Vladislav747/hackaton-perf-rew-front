@@ -7,8 +7,6 @@ import Spinner from "../../../UIKit/atoms/Spinner";
 import Input from "../../../UIKit/atoms/Input";
 import Header from "../Header";
 
-import { ReactComponent as SingInIcon } from "../../../assets/svgs/solid/sign-in-alt.svg";
-
 import {
   Wrapper,
   FormContainer,
@@ -18,7 +16,7 @@ import {
   StyledButton,
 } from "./styled-components";
 
-const LoginForm = (props: LoginFormProps) => {
+const ReviewForm = (props: LoginFormProps) => {
   const {
     handleSubmit: handleSubmitProps,
     errorMsg: errorMsgProps = "",
@@ -28,7 +26,7 @@ const LoginForm = (props: LoginFormProps) => {
   } = props;
 
   const [username, setUserName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
 
   const { state = {}, pathname } = locationProps;
   const { from = {} } = state;
@@ -42,7 +40,7 @@ const LoginForm = (props: LoginFormProps) => {
    * @param {*} event - событие
    */
   const handleUsername = (event: any) => {
-    const passwordInput = document.getElementById("phone");
+    const passwordInput = document.getElementById("password");
     // код 13 это enter
     if (event.keyCode === 13) {
       event.preventDefault();
@@ -59,8 +57,8 @@ const LoginForm = (props: LoginFormProps) => {
     if (event.keyCode === 13) {
       event.preventDefault();
       handleSubmitProps({
-        name: username,
-        phone,
+        username,
+        password,
       });
     }
   };
@@ -83,7 +81,7 @@ const LoginForm = (props: LoginFormProps) => {
         passwordInputRef.current.removeEventListener("keyup", handlePassword);
       }
     };
-  }, [username, phone]);
+  }, [username, password]);
 
   if (frontendIsReadyProps) {
     return (
@@ -120,28 +118,8 @@ const LoginForm = (props: LoginFormProps) => {
                   >
                     <Col className="login__form-col" xs={12}>
                       <HeadingStyled className="login__heading">
-                        Авторизация
+                        Форма отзыва
                       </HeadingStyled>
-                    </Col>
-                  </GroupContainer>
-                  <GroupContainer
-                    className="login__group-container"
-                    start="lg"
-                    center="sm"
-                  >
-                    <Col className="group-container__col" xs={12}>
-                      <Input
-                        /*@ts-ignore*/
-                        id="phone"
-                        className="group-container__input-phone"
-                        type="phone"
-                        ref={passwordInputRef}
-                        title="Номер телефона"
-                        label="Номер телефона"
-                        value={phone}
-                        /*@ts-ignore*/
-                        onChange={e => setPhone(e.target.value)}
-                      />
                     </Col>
                   </GroupContainer>
                   <GroupContainer
@@ -166,7 +144,27 @@ const LoginForm = (props: LoginFormProps) => {
                       />
                     </Col>
                   </GroupContainer>
-                  
+                  <GroupContainer
+                    className="login__group-container"
+                    start="lg"
+                    center="sm"
+                  >
+                    <Col className="group-container__col" xs={12}>
+                      <Input
+                        /*@ts-ignore*/
+                        id="password"
+                        className="group-container__input-password"
+                        type="password"
+                        ref={passwordInputRef}
+                        title="Пароль"
+                        label="Пароль"
+                        value={password}
+                        /*@ts-ignore*/
+                        onChange={e => setPassword(e.target.value)}
+                        autocomplete="current-password"
+                      />
+                    </Col>
+                  </GroupContainer>
                   <GroupContainer
                     className="login__group-container"
                     center="sm"
@@ -185,7 +183,7 @@ const LoginForm = (props: LoginFormProps) => {
                         onClick={() => {
                           handleSubmitProps({
                             username,
-                            phone,
+                            password,
                           });
                         }}
                       >
@@ -217,5 +215,5 @@ const LoginForm = (props: LoginFormProps) => {
   }
 };
 
-LoginForm.displayName = "LoginForm";
-export default LoginForm;
+ReviewForm.displayName = "ReviewForm";
+export default ReviewForm;

@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 
 import Modal from "../../../UIKit/moleculs/Modal";
-import FCamListCustomGroup from "../../containers/FCamListCustomGroup";
 import { notifyError } from "../../../helpers/toast";
 
 import {

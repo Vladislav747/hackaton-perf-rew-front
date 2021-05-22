@@ -26,7 +26,6 @@ import {
   getGroupAction,
   setActiveObjectIdCompleteAction,
 } from "../flist/actions";
-import { filterActiveCamerasAction } from "../streetsOnline/actions";
 
 import { userNameSelector } from "./selectors";
 
@@ -46,7 +45,6 @@ import {
 } from "../../helpers/authTokens";
 
 import sendErrorToSentry from "../../helpers/sentry";
-import { getPersonalGroupsForUserAction } from "../customGroupsModal";
 
 export const saga = function*() {
   yield all([fork(authSagaWatcher)]);
@@ -101,13 +99,8 @@ export const updateTokenWorker = function*({
 export const authStartWorker = function*({
   payload,
 }: authStartWorkerType): any {
-  const { username } = payload;
+  const { name, phone } = payload;
   const token = yield call(getAuthTokenFromLs);
-  const isValid = yield call(isValidToken, token);
-  if (isValid) {
-    yield put(authCompleteAction(token));
-    return;
-  }
   yield call(removeTokenFromLs);
   try {
     const { token, timeout } = yield race({
@@ -120,8 +113,6 @@ export const authStartWorker = function*({
       error.canShowUser = true;
       throw error;
     }
-    //Если все успешно заносим данные по логину в localStorage
-    yield setLoginToLs(username);
     yield put(authCompleteAction(token));
     return;
   } catch (e) {
@@ -185,7 +176,6 @@ export const authLogOutWorker = function*(): any {
 export const authCompleteWorker = function*({
   payload,
 }: authCompleteWorkerType) {
-  debugger;
   const { data } = payload;
   //Переназначаем логин с localStorage в store
   const userName = yield select(userNameSelector);
@@ -196,15 +186,8 @@ export const authCompleteWorker = function*({
     yield put(updateUsernameAction(dataUser));
   }
 
-  yield call(setTokenToLs, data);
+  yield call(setTokenToLs, data.token);
   yield call(setToken);
-  //обновляем список доступных камер после авторизации
-  yield put(getGroupAction("0"));
-  //Сбрасываем активные пллеры
-
-  //Очищаем все активные камеры
-  yield put(filterActiveCamerasAction([]));
-
   yield put(frontendIsReadyStatusAction(true));
 
   const camerasFromLsRaw = getSelectedCamsFromLs();
@@ -227,6 +210,4 @@ export const authCompleteWorker = function*({
 
     yield put(getLimitedInfoStartAction(loadingLimitedIds, camerasFromLsRaw));
   }
-
-  yield put(getPersonalGroupsForUserAction());
 };

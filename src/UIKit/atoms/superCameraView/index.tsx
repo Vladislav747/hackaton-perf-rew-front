@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { CameraView } from "../../../componentsUI/views/CamerasGrid/CamerasGrid";
 import { validateCameraObject } from "../../../helpers/streetsOnlineElements/serviceFunctions";
 //import TrafficContainer from './TrafficContainer'
 import styled from "styled-components";

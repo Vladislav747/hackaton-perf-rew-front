@@ -22,6 +22,10 @@ import { ReactComponent as HamburgerMenuOpenedIcon } from "../../../../assets/sv
 import { ReactComponent as LogoVersion2Icon } from "../../../../assets/svgs/streetsOnline/RawSvg/LogoVersionV2.svg";
 import { ReactComponent as PlusCircleIcon } from "../../../../assets/svgs/solid/circle-plus.svg";
 
+import { ReactComponent as ReviewsIcon } from "../../../../assets/svgs/solid/reviews.svg";
+import { ReactComponent as ProfileIcon } from "../../../../assets/svgs/solid/profile.svg";
+import { ReactComponent as LeaderIcon } from "../../../../assets/svgs/solid/leader.svg";
+
 export const SidebarWrapper = styled.div`
   height: 100%;
   left: 0;
@@ -312,4 +316,40 @@ export const SubMenuSecondElement = styled.div`
 
 export const SubMenuNoElements = styled.div`
   padding: 0 16px;
+`;
+
+export const StyledReviewsIcon = styled(ReviewsIcon)`
+  padding: 8px;
+  cursor: pointer;
+  transform: scale(1.5);
+  fill: ${palette("white", 0)};
+  &:hover {
+    path {
+      fill: ${palette("hoverIcon", 4)};
+    }
+  }
+`;
+
+export const StyledProfileIcon = styled(ProfileIcon)`
+  padding: 8px;
+  cursor: pointer;
+  transform: scale(1.5);
+  fill: ${palette("white", 0)};
+  &:hover {
+    path {
+      fill: ${palette("hoverIcon", 4)};
+    }
+  }
+`;
+
+export const StyledLeaderIcon = styled(LeaderIcon)`
+  padding: 8px;
+  cursor: pointer;
+  transform: scale(1.5);
+  fill: ${palette("white", 0)};
+  &:hover {
+    path {
+      fill: ${palette("hoverIcon", 4)};
+    }
+  }
 `;

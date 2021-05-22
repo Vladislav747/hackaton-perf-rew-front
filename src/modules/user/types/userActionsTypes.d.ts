@@ -3,7 +3,6 @@ interface updateUsernameType {
 }
 
 interface authStartActionType {
-  username: string;
-  password: string;
-  days: number;
+  name: string;
+  phone: string;
 }

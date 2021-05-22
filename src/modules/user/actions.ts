@@ -33,16 +33,14 @@ export const updateTokenAction = (token: string) => {
  *
  */
 export const authStartAction = ({
-  username,
-  password,
-  days = 30,
+  name,
+  phone,
 }: authStartActionType) => {
   return {
     type: actionTypes.AUTH_START,
     payload: {
-      username,
-      password,
-      days,
+      name,
+      phone,
     },
   };
 };

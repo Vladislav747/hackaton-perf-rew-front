@@ -47,3 +47,7 @@ interface dataApiAuth {
   username: string;
   password: string;
 }
+
+interface dataApiperfRequest{
+  manager: string;
+}

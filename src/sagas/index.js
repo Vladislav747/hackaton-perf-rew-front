@@ -9,8 +9,6 @@ import { saga as archiveSaga } from "../modules/Archive";
 import { saga as EventsSaga } from "../modules/events";
 import { saga as sidemenuSaga } from "../modules/sidemenu";
 import { saga as playerSaga } from "../modules/player";
-import { saga as customGroupsModalSaga } from "../modules/customGroupsModal";
-import { saga as customGroupsFlistSaga } from "../modules/customGroupsFlist";
 import { saga as favouriteSaga } from "../modules/favourite";
 
 export default function* rootSaga() {
@@ -24,8 +22,6 @@ export default function* rootSaga() {
     fork(EventsSaga),
     fork(sidemenuSaga),
     fork(playerSaga),
-    fork(customGroupsModalSaga),
-    fork(customGroupsFlistSaga),
     fork(favouriteSaga),
   ]);
 }
